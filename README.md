@@ -4,6 +4,8 @@ This repository provides a tutorial on creating a new fit template for EIS (Extr
 
 The default template in EISPAC only fits 2 Gaussians. In this we fit 3 Guassian according to the EIS software notes.
 
+This code expands on Alexandros Koukras's tutorial on creating single peak EISPAC template. https://github.com/andyto1234/EIS_data_analysis/blob/main/Making_an_EIS_fit_template.ipynb
+
 ## Table of Contents
 1. [The Fit Template](#the-fit-template)
 2. [Fitting the Data](#fitting-the-data)
