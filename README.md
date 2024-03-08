@@ -1,0 +1,22 @@
+# Creating a Fit Template for EIS Data
+
+This repository provides a tutorial on creating a new fit template for EIS (Extreme-ultraviolet Imaging Spectrometer) data, focusing on the Fe XIII 203.83 line, which is a standard line for EIS density diagnostics.
+
+The default template in EISPAC only fits 2 Gaussians. In this we fit 3 Guassian according to the EIS software notes.
+
+## Table of Contents
+1. [The Fit Template](#the-fit-template)
+2. [Fitting the Data](#fitting-the-data)
+3. [Creating a New Template](#creating-a-new-template)
+4. [Fitting Spectra with the New Template](#fitting-spectra-with-the-new-template)
+5. [Examining the Fit Result](#examining-the-fit-result)
+
+## Requirements
+- Python 3.x
+- eispac
+- astropy
+- scipy
+- numpy
+- matplotlib
+- h5py
+
