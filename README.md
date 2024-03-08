@@ -1,4 +1,4 @@
-# Creating a Fit Template for EIS Data
+# Creating a Fit Template for EISPAC
 
 This repository provides a tutorial on creating a new fit template for EIS (Extreme-ultraviolet Imaging Spectrometer) data, focusing on the Fe XIII 203.83 line, which is a standard line for EIS density diagnostics.
 
