@@ -2,8 +2,8 @@
 
 This repository provides two tutorials:
 
-1. Creating a new fit template for EIS (Extreme-ultraviolet Imaging Spectrometer) data, focusing on the Fe XIII spectral lines.
-2. Calculating the density of Fe XIII using the EISPAC package in Python.
+1. [Creating a new fit template](https://github.com/andyto1234/EISPAC-Tutorial___Fe-XIII-Density/blob/main/Tutorial__Making_an_EIS_fit_template.ipynb) for EIS (Extreme-ultraviolet Imaging Spectrometer) data, focusing on the Fe XIII spectral lines.
+2. [Calculating the density](https://github.com/andyto1234/EISPAC-Tutorial___Fe-XIII-Density/blob/main/Tutorial__Calculate_FeXIII_Density.ipynb) of Fe XIII using the EISPAC package in Python.
 
 ## Fit Template Tutorial
 
