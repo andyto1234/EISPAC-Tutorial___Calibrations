@@ -22,5 +22,5 @@ This code expands on Alexandros Koukras's tutorial on creating single peak EISPA
 - matplotlib
 - h5py
 
-## Special Thank
+## Special Thanks
 We used Claude 3 LLM to create this README.md 
