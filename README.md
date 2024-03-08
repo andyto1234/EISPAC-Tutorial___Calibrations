@@ -23,15 +23,6 @@ The Fe XIII density calculation tutorial demonstrates how to use the EISPAC pack
 
 This tutorial provides a practical example of how to use EISPAC for scientific analysis of EIS data, specifically for density diagnostics using the Fe XIII spectral lines.
 
-
-## Table of Contents
-
-1. \[The Fit Template\](#the-fit-template)
-2. \[Fitting the Data\](#fitting-the-data)
-3. \[Creating a New Template\](#creating-a-new-template)
-4. \[Fitting Spectra with the New Template\](#fitting-spectra-with-the-new-template)
-5. \[Examining the Fit Result\](#examining-the-fit-result)
-
 ## Requirements
 
 \- Python 3.x
