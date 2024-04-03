@@ -1,2 +1,5 @@
 # Ignore specific directories
 fit_res/
+.gitignore
+.DS_Store
+__pycasche__/
