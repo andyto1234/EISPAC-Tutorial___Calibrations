@@ -15,3 +15,15 @@ The tutorial covers the following topics:
 4. Comparing the calibration results between IDL and Python implementations
 
 By the end of this tutorial, you will be able to calibrate EIS data using different methods and compare the results between Python and IDL implementations.
+
+## Code Sample
+
+I think the tutorial makes it look a bit more complex than it is. To apply calibration to an eispac map 'int_map', you just have to do:
+
+```python
+from eis_calibration.eis_calib_2023 import calib_2023
+
+# Example code
+int_map = ... # Load or create your eispac map
+
+calibrated_map = calib_2023(int_map)
