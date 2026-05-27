@@ -4,6 +4,7 @@ import numpy as np
 from scipy.interpolate import interp1d
 from scipy.io import readsav
 from eis_calibration.eis_calib_2014 import eis_ea
+import sunpy.map
 
 def anytim2tai(time_str):
     """
@@ -144,11 +145,12 @@ def interpol_eis_ea(date, wavelength, short=False, long=False, radcal=False, ea_
 
     return out_ea
 
-def calib_2023(map):
-    import sunpy.map
-
+def calib_2023(map, ratio = False):
     match = re.search(r'\d+\.\d+', map.meta['line_id'])
     wvl_value = float(match.group())
     calib_ratio_2023 = eis_ea(wvl_value)/interpol_eis_ea(map.date.value, wvl_value)
     new_map = sunpy.map.Map(map.data*calib_ratio_2023, map.meta)
-    return new_map
+    if ratio:
+        return new_map, calib_ratio_2023
+    else:
+        return new_map

@@ -3,7 +3,7 @@
 This repository provides a tutorial on calibrating Hinode EUV Imaging Spectrometer (EIS) data using the EISPAC package in Python. The tutorial covers two calibration methods:
 
 1. Warren et al. 2014 calibration
-2. Del Zanna et al. 2023 calibration (currently in review)
+2. Del Zanna et al. 2023 calibration
 
 ## Tutorial Contents
 
