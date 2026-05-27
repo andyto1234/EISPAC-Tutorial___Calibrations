@@ -4,7 +4,7 @@ This repository provides a tutorial on calibrating Hinode EUV Imaging Spectromet
 
 1. Warren et al. 2014 calibration
 2. Del Zanna et al. 2025 calibration
-3. Young & Mondal 2026 calibration for the 2024 September 30 effective area curves (suggested to use from 2022 April 1)
+3. Young & Mondal 2026 calibration (suggested to use from 2022 April 1)
 
 ## Tutorial Contents
 
