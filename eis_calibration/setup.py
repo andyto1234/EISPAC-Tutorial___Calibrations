@@ -18,6 +18,7 @@ setup(
                             'eis_calib_warren_2014.sav',
                             'preflight_calib_long.sav',
                             'preflight_calib_short.sav',
+                            'data/young_mondal_2024/*.txt',
                             ],
     },
     classifiers=[
