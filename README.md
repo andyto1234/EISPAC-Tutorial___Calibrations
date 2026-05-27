@@ -33,3 +33,72 @@ calibrated_map_2024 = calib_2024(int_map)
 ```
 
 The Young & Mondal 2024 calibration uses effective area curves derived for a single date, 2024-09-30. The function prints a warning whenever it is used, and adds date-range warnings for observations before 2022-04-01 or after 2024-09-30.
+
+## Citation
+
+If you use these calibration routines, please cite the relevant calibration paper(s):
+
+- Warren et al. 2014 for the Warren calibration
+- Del Zanna et al. 2025 for the updated in-flight radiometric calibration
+- Young & Mondal 2026 for the 2024 September 30 effective area curves
+
+It would really help my work to cite this repository. For example, just a footnote:
+
+> The EIS calibration routines used here were reproduced in Python by Andy S.H. To and are available at https://github.com/andyto1234/EISPAC-Tutorial___Calibrations. This repository provides Python implementations that reproduce the SolarSoftWare (SSW) IDL calibration workflow.
+
+```bibtex
+@ARTICLE{Warren2014ApJS..213...11W,
+       author = {{Warren}, Harry P. and {Ugarte-Urra}, Ignacio and {Landi}, Enrico},
+        title = "{The Absolute Calibration of the EUV Imaging Spectrometer on Hinode}",
+      journal = {\apjs},
+     keywords = {Sun: corona, Astrophysics - Solar and Stellar Astrophysics},
+         year = 2014,
+        month = jul,
+       volume = {213},
+       number = {1},
+          eid = {11},
+        pages = {11},
+          doi = {10.1088/0067-0049/213/1/11},
+archivePrefix = {arXiv},
+       eprint = {1310.5324},
+ primaryClass = {astro-ph.SR},
+       adsurl = {https://ui.adsabs.harvard.edu/abs/2014ApJS..213...11W},
+      adsnote = {Provided by the SAO/NASA Astrophysics Data System}
+}
+
+@ARTICLE{DelZanna2025ApJS..276...42D,
+       author = {{Del Zanna}, G. and {Weberg}, M.~J. and {Warren}, H.~P.},
+        title = "{Hinode EIS: Updated In-flight Radiometric Calibration}",
+      journal = {\apjs},
+     keywords = {The Sun, Solar extreme ultraviolet emission, Calibration, 1693, 1493, 2179, Astrophysics - Solar and Stellar Astrophysics},
+         year = 2025,
+        month = feb,
+       volume = {276},
+       number = {2},
+          eid = {42},
+        pages = {42},
+          doi = {10.3847/1538-4365/ad981f},
+archivePrefix = {arXiv},
+       eprint = {2308.06609},
+ primaryClass = {astro-ph.SR},
+       adsurl = {https://ui.adsabs.harvard.edu/abs/2025ApJS..276...42D},
+      adsnote = {Provided by the SAO/NASA Astrophysics Data System}
+}
+
+@ARTICLE{Young2026arXiv260504223Y,
+       author = {{Young}, Peter R. and {Mondal}, Biswajit},
+        title = "{Modeling Flare Continuum Emission Observed by Hinode/EIS: Instrument Calibration and Element Composition Results}",
+      journal = {arXiv e-prints},
+     keywords = {Solar and Stellar Astrophysics},
+         year = 2026,
+        month = may,
+          eid = {arXiv:2605.04223},
+        pages = {arXiv:2605.04223},
+          doi = {10.48550/arXiv.2605.04223},
+archivePrefix = {arXiv},
+       eprint = {2605.04223},
+ primaryClass = {astro-ph.SR},
+       adsurl = {https://ui.adsabs.harvard.edu/abs/2026arXiv260504223Y},
+      adsnote = {Provided by the SAO/NASA Astrophysics Data System}
+}
+```
