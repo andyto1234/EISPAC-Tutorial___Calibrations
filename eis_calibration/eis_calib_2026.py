@@ -114,7 +114,7 @@ def _parse_observation_date(date_value):
 def _warn_for_observation_date(date_value):
     obs_date = _parse_observation_date(date_value)
     print(
-        "WARNING: Young & Mondal 2024 effective area is for a single date "
+        "WARNING: Young & Mondal 2026 effective area is for a single date "
         "(2024-09-30)."
     )
 
@@ -132,7 +132,7 @@ def _warn_for_observation_date(date_value):
         )
 
 
-def calib_2024(map, ratio=False):
+def calib_2026(map, ratio=False):
     import sunpy.map
 
     match = re.search(r"\d+\.\d+", map.meta["line_id"])
@@ -142,9 +142,9 @@ def calib_2024(map, ratio=False):
     wvl_value = float(match.group())
     _warn_for_observation_date(map.date.value)
 
-    calib_ratio_2024 = eis_ea(wvl_value) / young_mondal_ea(wvl_value)
-    new_map = sunpy.map.Map(map.data * calib_ratio_2024, map.meta)
+    calib_ratio_2026 = eis_ea(wvl_value) / young_mondal_ea(wvl_value)
+    new_map = sunpy.map.Map(map.data * calib_ratio_2026, map.meta)
 
     if ratio:
-        return new_map, calib_ratio_2024
+        return new_map, calib_ratio_2026
     return new_map

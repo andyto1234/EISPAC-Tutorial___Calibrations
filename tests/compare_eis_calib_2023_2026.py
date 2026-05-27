@@ -15,7 +15,7 @@ os.environ.setdefault("MPLCONFIGDIR", tempfile.mkdtemp(prefix="mpl-config-"))
 
 from eis_calibration.eis_calib_2014 import eis_ea
 from eis_calibration.eis_calib_2023 import interpol_eis_ea
-from eis_calibration.eis_calib_2024 import young_mondal_ea
+from eis_calibration.eis_calib_2026 import young_mondal_ea
 
 
 def compare_calibrations(date, threshold):
@@ -25,22 +25,22 @@ def compare_calibrations(date, threshold):
         [interpol_eis_ea(date, wave, quiet=True) for wave in waves],
         dtype=float,
     )
-    ea_2024 = np.array([young_mondal_ea(wave) for wave in waves], dtype=float)
+    ea_2026 = np.array([young_mondal_ea(wave) for wave in waves], dtype=float)
     preflight = np.array([eis_ea(wave) for wave in waves], dtype=float)
 
-    positive = (ea_2023 > 0.0) & (ea_2024 > 0.0) & (preflight > 0.0)
+    positive = (ea_2023 > 0.0) & (ea_2026 > 0.0) & (preflight > 0.0)
     ea_pct_diff = np.full_like(waves, np.nan, dtype=float)
-    ea_pct_diff[positive] = 100.0 * (ea_2024[positive] - ea_2023[positive]) / ea_2023[positive]
+    ea_pct_diff[positive] = 100.0 * (ea_2026[positive] - ea_2023[positive]) / ea_2023[positive]
 
     multiplier_2023 = np.full_like(waves, np.nan, dtype=float)
-    multiplier_2024 = np.full_like(waves, np.nan, dtype=float)
+    multiplier_2026 = np.full_like(waves, np.nan, dtype=float)
     multiplier_2023[positive] = preflight[positive] / ea_2023[positive]
-    multiplier_2024[positive] = preflight[positive] / ea_2024[positive]
+    multiplier_2026[positive] = preflight[positive] / ea_2026[positive]
 
     multiplier_pct_diff = np.full_like(waves, np.nan, dtype=float)
     multiplier_pct_diff[positive] = (
         100.0
-        * (multiplier_2024[positive] - multiplier_2023[positive])
+        * (multiplier_2026[positive] - multiplier_2023[positive])
         / multiplier_2023[positive]
     )
 
@@ -72,12 +72,12 @@ def compare_calibrations(date, threshold):
     if not np.any(failing):
         print("  None")
     else:
-        print("  wave[A]  EA2023      EA2024      EA diff[%]  multiplier diff[%]")
+        print("  wave[A]  EA2023      EA2026      EA diff[%]  multiplier diff[%]")
         for idx in np.where(failing)[0]:
             print(
                 f"  {waves[idx]:6.1f}  "
                 f"{ea_2023[idx]:.7g}  "
-                f"{ea_2024[idx]:.7g}  "
+                f"{ea_2026[idx]:.7g}  "
                 f"{ea_pct_diff[idx]:+10.1f}  "
                 f"{multiplier_pct_diff[idx]:+18.1f}"
             )
@@ -85,7 +85,7 @@ def compare_calibrations(date, threshold):
 
 def main():
     parser = argparse.ArgumentParser(
-        description="Compare EIS 2023 and Young & Mondal 2024 calibrations."
+        description="Compare EIS 2023 and Young & Mondal 2026 calibrations."
     )
     parser.add_argument(
         "--date",

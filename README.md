@@ -24,14 +24,14 @@ I think the tutorial makes it look a bit more complex than it is. To apply calib
 ```python
 from eis_calibration.eis_calib_2014 import calib_2014
 from eis_calibration.eis_calib_2023 import calib_2023
-from eis_calibration.eis_calib_2024 import calib_2024
+from eis_calibration.eis_calib_2026 import calib_2026
 
 # Example code
 int_map = ... # Load or create your eispac map
 
 calibrated_map_2014 = calib_2014(int_map)
 calibrated_map_2023 = calib_2023(int_map)
-calibrated_map_2024 = calib_2024(int_map)
+calibrated_map_2026 = calib_2026(int_map)
 ```
 
 The Young & Mondal 2026 calibration uses effective area curves derived for a single date, 2024-09-30. The function prints a warning whenever it is used, and adds date-range warnings for observations before 2022-04-01 or after 2024-09-30.

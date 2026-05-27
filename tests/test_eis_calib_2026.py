@@ -15,7 +15,7 @@ TMP_SUNPY_CONFIG = tempfile.TemporaryDirectory()
 Path(TMP_SUNPY_CONFIG.name).mkdir(parents=True, exist_ok=True)
 os.environ.setdefault("SUNPY_CONFIGDIR", TMP_SUNPY_CONFIG.name)
 
-from eis_calibration.eis_calib_2024 import calib_2024, young_mondal_ea
+from eis_calibration.eis_calib_2026 import calib_2026, young_mondal_ea
 
 
 class FakeDate:
@@ -44,7 +44,7 @@ def fake_sunpy_modules():
     return {"sunpy": sunpy_module, "sunpy.map": sunpy_map_module}
 
 
-class TestEisCalib2024(unittest.TestCase):
+class TestEisCalib2026(unittest.TestCase):
     def test_effective_area_lookup_returns_positive_values(self):
         self.assertGreater(young_mondal_ea(203.0), 0.0)
         self.assertGreater(young_mondal_ea(262.0), 0.0)
@@ -55,7 +55,7 @@ class TestEisCalib2024(unittest.TestCase):
 
     def test_calibration_ratio_path_returns_map_and_scalar_ratio(self):
         with mock.patch.dict(sys.modules, fake_sunpy_modules()):
-            new_map, ratio = calib_2024(FakeMapInput("2024-09-30T23:59:00"), ratio=True)
+            new_map, ratio = calib_2026(FakeMapInput("2024-09-30T23:59:00"), ratio=True)
 
         self.assertIsInstance(new_map, FakeSunpyMap)
         self.assertTrue(np.isfinite(ratio))
@@ -72,7 +72,7 @@ class TestEisCalib2024(unittest.TestCase):
                 output = io.StringIO()
                 with mock.patch.dict(sys.modules, fake_sunpy_modules()):
                     with contextlib.redirect_stdout(output):
-                        calib_2024(FakeMapInput(date_value))
+                        calib_2026(FakeMapInput(date_value))
 
                 text = output.getvalue()
                 self.assertIn("single date (2024-09-30)", text)
