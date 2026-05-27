@@ -22,13 +22,15 @@ By the end of this tutorial, you will be able to calibrate EIS data using differ
 I think the tutorial makes it look a bit more complex than it is. To apply calibration to an eispac map 'int_map', you just have to do:
 
 ```python
+from eis_calibration.eis_calib_2014 import calib_2014
 from eis_calibration.eis_calib_2023 import calib_2023
 from eis_calibration.eis_calib_2024 import calib_2024
 
 # Example code
 int_map = ... # Load or create your eispac map
 
-calibrated_map = calib_2023(int_map)
+calibrated_map_2014 = calib_2014(int_map)
+calibrated_map_2023 = calib_2023(int_map)
 calibrated_map_2024 = calib_2024(int_map)
 ```
 
