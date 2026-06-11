@@ -11,30 +11,52 @@ This repository provides a tutorial on calibrating Hinode EUV Imaging Spectromet
 The tutorial covers the following topics:
 
 1. Reading and fitting EIS data using EISPAC
-2. Retrieving and applying the Warren et al. 2014, Del Zanna et al. 2025, and Young & Mondal 2026 calibration functions
-3. Comparing the calibrated intensity maps with the default EISPAC preflight calibration
-4. Comparing the calibration results between IDL and Python implementations
+2. Applying the recommended cube-level calibration workflow before fitting
+3. Using the Warren et al. 2014, Del Zanna et al. 2025, and Young & Mondal 2026 calibration functions
+4. Comparing the calibrated intensity maps with the default EISPAC preflight calibration
+5. Comparing the calibration results between IDL and Python implementations
 
 By the end of this tutorial, you will be able to calibrate EIS data using different methods and compare the results between Python and IDL implementations.
 
 ## Code Sample
 
-I think the tutorial makes it look a bit more complex than it is. To apply calibration to an eispac map 'int_map', you just have to do:
+The recommended workflow is to calibrate the `EISCube` before fitting, so the fit sees the wavelength-dependent calibration across the full spectral window:
 
 ```python
+import eispac
+from eis_calibration.eis_cube_calib import calibrate_cube
+
+# Example code
+data_filepath = ...
+template = ...
+
+preflight_cube = eispac.read_cube(data_filepath, template.central_wave, apply_radcal=False)
+
+cube_2014 = calibrate_cube(counts_cube, "2014")
+cube_2023 = calibrate_cube(counts_cube, "2023")
+cube_2026 = calibrate_cube(counts_cube, "2026")
+
+fit_res_2026 = eispac.fit_spectra(cube_2026, template)
+```
+
+The older map-level helpers are still available as convenient post-fit shortcuts, but they are approximations because they correct only the final intensity map:
+
+```python
+import eispac
 from eis_calibration.eis_calib_2014 import calib_2014
 from eis_calibration.eis_calib_2023 import calib_2023
 from eis_calibration.eis_calib_2026 import calib_2026
 
-# Example code
-int_map = ... # Load or create your eispac map
+preflight_cube = eispac.read_cube(data_filepath, template.central_wave, apply_radcal=True)
+fit_res_preflight = eispac.fit_spectra(preflight_cube, template)
+int_map = fit_res_preflight.get_map(0, "int")
 
 calibrated_map_2014 = calib_2014(int_map)
 calibrated_map_2023 = calib_2023(int_map)
 calibrated_map_2026 = calib_2026(int_map)
 ```
 
-The Young & Mondal 2026 calibration uses effective area curves derived for a single date, 2024-09-30. The function prints a warning whenever it is used, and adds date-range warnings for observations before 2022-04-01 or after 2024-09-30.
+The Young & Mondal 2026 calibration uses effective area curves derived for a single date, `2024-09-30`. The cube-level and map-level APIs both emit a warning whenever this calibration is used, and they add date-range warnings for observations before `2022-04-01` or after `2024-09-30`.
 
 ## Citation
 

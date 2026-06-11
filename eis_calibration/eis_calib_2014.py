@@ -3,6 +3,7 @@ import numpy as np
 from scipy.io import readsav
 # from scipy.interpolate import splrep, splev
 from scipy.interpolate import interp1d
+import warnings
 
 
 def get_time_tai(date_string):
@@ -168,7 +169,14 @@ def is_eis_wavelength(input_wave):
 def calib_2014(map):
     import sunpy.map
     import re
-    
+
+    warnings.warn(
+        "calib_2014() applies a post-fit approximation to the intensity map. "
+        "If the effective-area shape changes across the fitted spectral window, "
+        "prefer calibrate_cube(...) before fit_spectra(...).",
+        UserWarning,
+        stacklevel=2,
+    )
     match = re.search(r'\d+\.\d+', map.meta['line_id'])
     wvl_value = float(match.group())
     calib_ratio = eis_ea(wvl_value)/eis_ea_nrl(map.date.value, wvl_value)

@@ -1,10 +1,9 @@
-import contextlib
-import io
 import os
 import sys
 import tempfile
 import types
 import unittest
+import warnings
 from pathlib import Path
 from unittest import mock
 
@@ -55,13 +54,20 @@ class TestEisCalib2026(unittest.TestCase):
 
     def test_calibration_ratio_path_returns_map_and_scalar_ratio(self):
         with mock.patch.dict(sys.modules, fake_sunpy_modules()):
-            new_map, ratio = calib_2026(FakeMapInput("2024-09-30T23:59:00"), ratio=True)
+            with warnings.catch_warnings(record=True) as caught:
+                warnings.simplefilter("always")
+                new_map, ratio = calib_2026(
+                    FakeMapInput("2024-09-30T23:59:00"),
+                    ratio=True,
+                )
 
         self.assertIsInstance(new_map, FakeSunpyMap)
         self.assertTrue(np.isfinite(ratio))
         self.assertGreater(ratio, 0.0)
+        messages = [str(item.message) for item in caught]
+        self.assertTrue(any("post-fit approximation" in message for message in messages))
 
-    def test_warning_messages_are_printed(self):
+    def test_warning_messages_are_emitted(self):
         cases = [
             ("2021-01-01T00:00:00", "before 2022-04-01"),
             ("2024-10-01T00:00:00", "after the calibrated date on 2024-09-30"),
@@ -69,14 +75,15 @@ class TestEisCalib2026(unittest.TestCase):
 
         for date_value, expected_warning in cases:
             with self.subTest(date_value=date_value):
-                output = io.StringIO()
                 with mock.patch.dict(sys.modules, fake_sunpy_modules()):
-                    with contextlib.redirect_stdout(output):
+                    with warnings.catch_warnings(record=True) as caught:
+                        warnings.simplefilter("always")
                         calib_2026(FakeMapInput(date_value))
 
-                text = output.getvalue()
+                text = " ".join(str(item.message) for item in caught)
                 self.assertIn("single date (2024-09-30)", text)
                 self.assertIn(expected_warning, text)
+                self.assertIn("post-fit approximation", text)
 
 
 if __name__ == "__main__":

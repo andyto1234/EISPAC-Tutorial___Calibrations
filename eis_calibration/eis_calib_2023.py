@@ -3,6 +3,7 @@ import re
 import numpy as np
 from scipy.interpolate import interp1d
 from scipy.io import readsav
+import warnings
 from eis_calibration.eis_calib_2014 import eis_ea
 import sunpy.map
 
@@ -146,6 +147,13 @@ def interpol_eis_ea(date, wavelength, short=False, long=False, radcal=False, ea_
     return out_ea
 
 def calib_2023(map, ratio = False):
+    warnings.warn(
+        "calib_2023() applies a post-fit approximation to the intensity map. "
+        "If the effective-area shape changes across the fitted spectral window, "
+        "prefer calibrate_cube(...) before fit_spectra(...).",
+        UserWarning,
+        stacklevel=2,
+    )
     match = re.search(r'\d+\.\d+', map.meta['line_id'])
     wvl_value = float(match.group())
     calib_ratio_2023 = eis_ea(wvl_value)/interpol_eis_ea(map.date.value, wvl_value)

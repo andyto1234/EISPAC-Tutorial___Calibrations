@@ -2,6 +2,7 @@ import datetime
 import re
 from functools import lru_cache
 from importlib import resources
+import warnings
 
 import numpy as np
 
@@ -113,28 +114,41 @@ def _parse_observation_date(date_value):
 
 def _warn_for_observation_date(date_value):
     obs_date = _parse_observation_date(date_value)
-    print(
+    warnings.warn(
         "WARNING: Young & Mondal 2026 effective area is for a single date "
-        "(2024-09-30)."
+        "(2024-09-30).",
+        UserWarning,
+        stacklevel=2,
     )
 
     if obs_date < RECOMMENDED_START_DATE:
-        print(
+        warnings.warn(
             "WARNING: Selected date is before 2022-04-01. Young & Mondal "
             "recommend these effective area curves for datasets obtained since "
-            "2022 April."
+            "2022 April.",
+            UserWarning,
+            stacklevel=2,
         )
 
     if obs_date > CALIBRATION_DATE:
-        print(
+        warnings.warn(
             "WARNING: Selected date is after the calibrated date on 2024-09-30. "
-            "Returning the 2024-09-30 effective area."
+            "Returning the 2024-09-30 effective area.",
+            UserWarning,
+            stacklevel=2,
         )
 
 
 def calib_2026(map, ratio=False):
     import sunpy.map
 
+    warnings.warn(
+        "calib_2026() applies a post-fit approximation to the intensity map. "
+        "If the effective-area shape changes across the fitted spectral window, "
+        "prefer calibrate_cube(...) before fit_spectra(...).",
+        UserWarning,
+        stacklevel=2,
+    )
     match = re.search(r"\d+\.\d+", map.meta["line_id"])
     if match is None:
         raise ValueError("ERROR: Could not find a wavelength in map.meta['line_id']")
