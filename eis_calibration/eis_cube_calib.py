@@ -11,6 +11,12 @@ from eis_calibration.eis_calib_2026 import _warn_for_observation_date, young_mon
 
 VALID_CALIBRATIONS = {"2014", "2023", "2026"}
 
+CALIBRATION_SOURCES = {
+    "2014": "Warren et al. 2014",
+    "2023": "Del Zanna et al. 2025",
+    "2026": "Young & Mondal 2026",
+}
+
 
 def _parse_datetime(value):
     if isinstance(value, datetime.datetime):
@@ -149,6 +155,11 @@ def calibrate_cube(cube, calibration, date=None, quiet=False):
 
     new_radcal = preflight_radcal * preflight_ea / target_ea
     calibrated_cube = counts_cube.apply_radcal(new_radcal)
+    calibrated_cube.meta["calib_method"] = calibration_name
+    calibrated_cube.meta["calib_source"] = CALIBRATION_SOURCES[calibration_name]
+    calibrated_cube.meta["calib_date_used"] = obs_date
+    calibrated_cube.meta["calib_scope"] = "cube"
+    calibrated_cube.meta["calib_preserves_meta_radcal"] = True
     calibrated_cube.meta["notes"].append(
         f"Applied {calibration_name} EIS calibration with calibrate_cube()"
     )

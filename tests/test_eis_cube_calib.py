@@ -98,6 +98,12 @@ class TestCubeCalibration(unittest.TestCase):
 
         self.assertTrue(np.allclose(calibrated.radcal, expected))
         self.assertTrue(np.allclose(calibrated.data[0, 0], expected))
+        self.assertEqual(calibrated.meta["calib_method"], "2026")
+        self.assertEqual(calibrated.meta["calib_source"], "Young & Mondal 2026")
+        self.assertEqual(calibrated.meta["calib_date_used"], "2024-09-30T00:00:00")
+        self.assertEqual(calibrated.meta["calib_scope"], "cube")
+        self.assertTrue(calibrated.meta["calib_preserves_meta_radcal"])
+        self.assertTrue(np.allclose(calibrated.meta["radcal"], preflight_radcal))
 
     def test_preflight_cube_replaced_with_requested_calibration(self):
         wave = np.linspace(203.60, 204.10, 24)
