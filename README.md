@@ -30,7 +30,7 @@ from eis_calibration.eis_cube_calib import calibrate_cube
 data_filepath = ...
 template = ...
 
-preflight_cube = eispac.read_cube(data_filepath, template.central_wave, apply_radcal=False)
+uncalib_cube = eispac.read_cube(data_filepath, template.central_wave, apply_radcal=False)
 
 cube_2014 = calibrate_cube(counts_cube, "2014")
 cube_2023 = calibrate_cube(counts_cube, "2023")
