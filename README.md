@@ -32,9 +32,9 @@ template = ...
 
 uncalib_cube = eispac.read_cube(data_filepath, template.central_wave, apply_radcal=False)
 
-cube_2014 = calibrate_cube(counts_cube, "2014")
-cube_2023 = calibrate_cube(counts_cube, "2023")
-cube_2026 = calibrate_cube(counts_cube, "2026")
+cube_2014 = calibrate_cube(uncalib_cube, "2014")
+cube_2023 = calibrate_cube(uncalib_cube, "2023")
+cube_2026 = calibrate_cube(uncalib_cube, "2026")
 
 fit_res_2026 = eispac.fit_spectra(cube_2026, template)
 ```
